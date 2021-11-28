@@ -1,0 +1,57 @@
+/*
+求出相邻的任意四个数之和，并输出。
+然后找出相加之和最大的四个数，输出求和的结果以及这四个数。
+*/
+//8 5 13 15 3 11 6 7 22 10
+//9 10 1 2 3 4 5 6 7 8
+#include<iomanip>
+#include<iostream>
+using namespace std;
+int main()
+{
+	int a[10],b[10],*p,*q,*m,*s=b,i,sum=0;
+	cout<<"请输入10个整数："<<endl;
+	for(p=a;p<a+10;p++)
+		cin>>*p;
+	cout<<"相邻4个数之和分别是："<<endl;	
+		for(p=a;p<a+10;p++)
+		{
+			for(q=s;q<s+1;q++)	//每次在数组b中存放一个和值
+			{
+				for(i=0,m=p;i<4;i++,m++)//用m记录开始的元素，向后共加4个
+				{	
+					if((m-a)>9)
+						*m=*(m-10);//m10=m0，m11=m1...
+					sum = sum+*m;
+				}
+				*q=sum;
+				sum = 0;		
+				cout<<setw(4)<<*q;
+				s++;//存放位置加1
+				break;//在数组b[10]中记录下这一个和之后，进行下一个计算
+			}
+		}	
+	cout<<endl;
+	cout<<"最大的和值是：";
+	int max=b[0],n;
+	for(q=b;q<b+10;q++)		
+	{
+		if(*q>max)		
+		{
+			max = *q;
+			n=q-b;//最大值是第n个元素开始的和
+		}
+	}
+	cout<<max<<endl;	
+	cout<<"参与求和的4个数是：";
+	for(i=0,q=n+a;i<4;i++,q++)//*q从n+a开始取
+	{	
+		if((q-a)>9)
+			*q=*(q-10);//m10=m0，m11=m1...
+		cout<<*q<<setw(3);
+	}
+	cout<<endl;
+	system("Pause");
+}
+
+
